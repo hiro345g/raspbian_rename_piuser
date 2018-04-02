@@ -4,7 +4,7 @@ nuid="pi001"
 /usr/sbin/usermod -d /home/${nuid} -m ${nuid}
 /usr/sbin/groupmod -n ${nuid} ${ouid}
 /bin/sed -E -i "s/^${ouid} /${nuid} /" /etc/sudoers.d/010_pi-nopasswd
-/bin/sed -E -i "s/--autologin ${ouid}$/--autologin ${nuid}/" /etc/systemd/system/autologin@.service
+/bin/sed -E -i "s/--autologin ${ouid} /--autologin ${nuid} /" /etc/systemd/system/autologin@.service
 /bin/sed -E -i "s/autologin-user=${ouid}$/autologin-user=${nuid}/" /etc/lightdm/lightdm.conf
 /bin/sed -E -i "s/:${ouid}$;/:${nuid};/" /etc/polkit-1/localauthority.conf.d/60-desktop-policy.conf
 [ -h /home/pi ] && /bin/rm /home/pi
