@@ -7,13 +7,37 @@ Raspbianの初期設定で登録されているユーザーpiの名前を変更�
 
 シェルスクリプトを使って実装してあります。
 
+動作確認をしたRaspbianの情報は下記のとおりです。
+
+```bash
+$ cat /boot/issue.txt 
+Raspberry Pi reference 2018-03-13
+Generated using pi-gen, https://github.com/RPi-Distro/pi-gen, 00013d7972122d1304aacda8fff5098f073ceb43, stage5
+$ cat /etc/os-release 
+PRETTY_NAME="Raspbian GNU/Linux 9 (stretch)"
+NAME="Raspbian GNU/Linux"
+VERSION_ID="9"
+VERSION="9 (stretch)"
+ID=raspbian
+ID_LIKE=debian
+HOME_URL="http://www.raspbian.org/"
+SUPPORT_URL="http://www.raspbian.org/RaspbianForums"
+BUG_REPORT_URL="http://www.raspbian.org/RaspbianBugs"
+$ uname -a
+Linux raspberrypi 4.14.30-v7+ #1102 SMP Mon Mar 26 16:45:49 BST 2018 armv7l GNU/Linux
+```
+
 
 # Setup
 
+使用方法は次のとおりです。rename_pi_sample.sh、setup.shの処理内容は設定ファイル内の文字列を変更したり、ディレクトリーの簡単な操作をしているだけです。
+
 1. gitコマンドでリポジトリーをクローンします。
-2. scriptにあるrename_pi_sample.shをrename_pi.shというファイル名でコピーして、nuid="pi001"のpi001を使いたいユーザー名にします。Raspbianで使えるユーザー名を指定する必要があります。
-3. setup.shをroot権限で実行すると、Raspbianが再起動します。
+2. scriptにあるrename_pi_sample.shをrename_pi.shというファイル名でコピーして、nuid="pi001"のpi001を使いたいユーザー名にします。Raspbianで使えるユーザー名を指定する必要があります。pi001から変更をする必要がない場合は、この手順はスキップします。後で実行するsetup.shが自動でrename_pi_sample.shをrename_pi.shにコピーして利用します。
+3. setup.shを実行すると、Raspbianが再起動します。setup.sh内部ではroot権限で処理を実行しています。
 4. Raspbianが再起動すると、新しいユーザー名で自動ログインします。ユーザー名はLXTerminalを起動したときに表示されるプロンプトが「pi@raspberrypi」から「pi001@raspberrypi」となることで確認できます（pi001は1.で指定したユーザー名になります）。
+
+実行例は次のとおりです。ここでは、ユーザー名piをpi002と変更しています。
 
 ```bash
 $ git clone https://github.com/hiro345g/raspbian_rename_piuser.git
