@@ -8,8 +8,14 @@ nuid="pi001"
 /bin/sed -E -i "s/--autologin ${ouid} /--autologin ${nuid} /" /etc/systemd/system/autologin@.service
 /bin/sed -E -i "s/autologin-user=${ouid}$/autologin-user=${nuid}/" /etc/lightdm/lightdm.conf
 /bin/sed -i "s/:${ouid};/:${nuid};/" /etc/polkit-1/localauthority.conf.d/60-desktop-policy.conf
-[ ! -e /home/pi ] && /bin/ln -s /home/${nuid} /home/pi
+if [ ${nuid} = "pi" ]; then
+  :  # do nothing
+else
+  if [ ! -e /home/pi ]; then
+    /bin/ln -s /home/${nuid} /home/pi
+  fi
+fi
 [ -f /var/spool/cron/crontabs/${ouid} ] && /bin/mv /var/spool/cron/crontabs/${ouid} /var/spool/cron/crontabs/${nuid}
 [ -f /var/spool/mail/${ouid} ] && /bin/mv /var/spool/mail/${ouid} /var/spool/mail/${nuid}
-[ -e /etc/rc.local.backup ] && /bin/cp /etc/rc.local.backup /etc/rc.local && /bin/rm /etc/rc.local.backup && /bin/reboot
+[ -e /etc/rc.local.backup ] && /bin/cp /etc/rc.local.backup /etc/rc.local && /bin/rm /etc/rc.local.backup && /sbin/reboot
 exit 0
