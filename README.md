@@ -22,6 +22,17 @@ $ cat rename_pi_sample.sh | sed 's/nuid="pi001"/nuid="pi002"/' - > rename_pi.sh
 $ sh setup.sh
 ```
 
+なお、piに戻したいときは、rename_pi.shを次のように作成しなおしてからsetup.shを実行します。ユーザー名をpiからpi002と変更してあって、それをpiに直したい場合のコマンド例は次のとおりです。
+
+```bash
+$ cd script 
+$ cat rename_pi_sample.sh | \
+    sed 's/ouid="pi"/ouid="pi002"/' - | \
+    sed 's/nuid="pi001"/nuid="pi"/' - > rename_pi.sh
+$ sh setup.sh
+```
+
+
 # Licence
 
 This software is released under the MIT License, see LICENSE.
