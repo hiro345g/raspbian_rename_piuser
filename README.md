@@ -51,7 +51,7 @@ $ cat rename_pi_sample.sh | sed 's/nuid="pi001"/nuid="pi002"/' - > rename_pi.sh
 $ sh setup.sh
 ```
 
-なお、piに戻したいときは、rename_pi.shを次のように作成しなおしてからsetup.shを実行します。ユーザー名をpiからpi002と変更してあって、それをpiに直したい場合のコマンド例は次のとおりです。
+現在のユーザー名と変更したいユーザー名をsetup.shへ指定して実行することもできます。例えば、ユーザー名をpiからpi002と変更してあって、それをpiに戻したい場合は次のように実行します。
 
 ```bash
 $ cd script 
