@@ -33,15 +33,20 @@ Linux raspberrypi 4.14.30-v7+ #1102 SMP Mon Mar 26 16:45:49 BST 2018 armv7l GNU/
 使用方法は次のとおりです。rename_pi_sample.sh、setup.shの処理内容は設定ファイル内の文字列を変更したり、ディレクトリーの簡単な操作をしているだけです。
 
 1. gitコマンドでリポジトリーをクローンします。
-2. scriptにあるrename_pi_sample.shをrename_pi.shというファイル名でコピーして、nuid="pi001"のpi001を使いたいユーザー名にします。Raspbianで使えるユーザー名を指定する必要があります。pi001から変更をする必要がない場合は、この手順はスキップします。後で実行するsetup.shが自動でrename_pi_sample.shをrename_pi.shにコピーして利用します。
-3. setup.shを実行すると、Raspbianが再起動します。setup.sh内部ではroot権限で処理を実行しています。
-4. Raspbianが再起動すると、新しいユーザー名で自動ログインします。ユーザー名はLXTerminalを起動したときに表示されるプロンプトが「pi@raspberrypi」から「pi001@raspberrypi」となることで確認できます（pi001は1.で指定したユーザー名になります）。
+2. setup.shへ変更したいユーザー名を指定して実行すると、Raspbianが再起動します。setup.sh内部ではroot権限で処理を実行しています。Raspbianで使えるユーザー名を指定する必要があります。ユーザー名を指定しないとpi001を指定したことになります。
+3. Raspbianが再起動すると、新しいユーザー名で自動ログインします。ユーザー名はLXTerminalを起動したときに表示されるプロンプトが「pi@raspberrypi」から「pi001@raspberrypi」となることで確認できます（pi001は1.で指定したユーザー名になります）。
 
 実行例は次のとおりです。ここでは、ユーザー名piをpi002と変更しています。
 
 ```bash
 $ git clone https://github.com/hiro345g/raspbian_rename_piuser.git
 $ cd script 
+$ sh setup.sh pi002
+```
+
+ここでの、`$ sh setup.sh pi002` は、下記と同等の処理をしていて、scriptにあるrename_pi_sample.shをrename_pi.shというファイル名でコピーして、nuid="pi001"のpi001を使いたいユーザー名にしています。
+
+```bash
 $ cat rename_pi_sample.sh | sed 's/nuid="pi001"/nuid="pi002"/' - > rename_pi.sh
 $ sh setup.sh
 ```
@@ -50,6 +55,12 @@ $ sh setup.sh
 
 ```bash
 $ cd script 
+$ sh setup.sh pi002 pi
+```
+
+ここでの、`$ sh setup.sh pi002 pi` は、下記と同等の処理をしています。
+
+```bash
 $ cat rename_pi_sample.sh | \
     sed 's/ouid="pi"/ouid="pi002"/' - | \
     sed 's/nuid="pi001"/nuid="pi"/' - > rename_pi.sh
